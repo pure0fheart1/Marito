@@ -169,6 +169,10 @@ class SoundManager {
     }
     
     playOverworldMusic() {
+        if (this.currentMusic) {
+            clearTimeout(this.currentMusic);
+        }
+        
         const melody = [
             659, 659, 0, 659, 0, 523, 659, 0, 784, 0, 0, 0, 392, 0, 0, 0,
             523, 0, 0, 392, 0, 0, 330, 0, 0, 440, 0, 494, 0, 466, 440, 0
@@ -176,7 +180,7 @@ class SoundManager {
         
         const playNote = (index) => {
             if (index >= melody.length) {
-                setTimeout(() => this.playOverworldMusic(), 1000);
+                this.currentMusic = setTimeout(() => this.playOverworldMusic(), 1000);
                 return;
             }
             
@@ -185,7 +189,7 @@ class SoundManager {
                 this.createTone(freq, 0.2, 'square', 0.1);
             }
             
-            setTimeout(() => playNote(index + 1), 200);
+            this.currentMusic = setTimeout(() => playNote(index + 1), 200);
         };
         
         playNote(0);
@@ -236,7 +240,10 @@ class SoundManager {
     }
     
     stopMusic() {
-        this.currentMusic = null;
+        if (this.currentMusic) {
+            clearTimeout(this.currentMusic);
+            this.currentMusic = null;
+        }
     }
     
     playSound(soundName) {

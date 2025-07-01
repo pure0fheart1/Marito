@@ -41,10 +41,21 @@ class Particle {
 class ParticleSystem {
     constructor() {
         this.particles = [];
+        this.objectPools = null; // Will be set by game
+    }
+    
+    setObjectPools(pools) {
+        this.objectPools = pools;
     }
     
     addParticle(x, y, velocityX, velocityY, color, life, size) {
-        this.particles.push(new Particle(x, y, velocityX, velocityY, color, life, size));
+        if (this.objectPools) {
+            const particle = this.objectPools.acquireParticle(x, y, velocityX, velocityY, color, life, size);
+            this.particles.push(particle);
+        } else {
+            // Fallback to old method
+            this.particles.push(new Particle(x, y, velocityX, velocityY, color, life, size));
+        }
     }
     
     createExplosion(x, y, color = '#FFD700', count = 8) {
@@ -126,8 +137,19 @@ class ParticleSystem {
     }
     
     update() {
-        this.particles.forEach(particle => particle.update());
-        this.particles = this.particles.filter(particle => !particle.dead);
+        // Update particles and remove dead ones with object pooling
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            const particle = this.particles[i];
+            particle.update();
+            
+            if (particle.dead) {
+                // Return to pool if using object pooling
+                if (this.objectPools) {
+                    this.objectPools.releaseParticle(particle);
+                }
+                this.particles.splice(i, 1);
+            }
+        }
     }
     
     render(ctx, camera) {

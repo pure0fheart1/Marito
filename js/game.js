@@ -7,11 +7,17 @@ class Game {
         this.currentLevel = 1;
         this.maxLevel = 6;
         
+        // Performance optimization systems
+        this.viewportCuller = new ViewportCuller(100);
+        this.spatialGrid = null; // Will be initialized when level loads
+        this.objectPools = new GameObjectPools();
+        
         // Game objects
         this.player = null;
         this.level = null;
         this.camera = { x: 0, y: 0 };
         this.particleSystem = new ParticleSystem();
+        this.particleSystem.setObjectPools(this.objectPools);
         this.soundManager = new SoundManager();
         
         // Input handling
@@ -275,6 +281,12 @@ class Game {
         this.camera.y = 0;
         this.particleSystem.clear();
         
+        // Initialize spatial grid for collision optimization
+        this.spatialGrid = new SpatialGrid(levelData.width, levelData.height, 64);
+        
+        // Clear object pools
+        this.objectPools.releaseAll();
+        
         // Update UI
         this.uiElements.world.textContent = `${Math.ceil(levelNum / 2)}-${((levelNum - 1) % 2) + 1}`;
     }
@@ -301,12 +313,29 @@ class Game {
             return;
         }
         
-        // Update game objects
+        // Update spatial grid with all objects
+        this.spatialGrid.clear();
+        this.spatialGrid.addObject(this.player, 'player');
+        
+        // Only update visible objects for better performance
+        const visibleEnemies = this.viewportCuller.filterInViewport(
+            this.level.getEnemies(), this.camera, this.canvas.width, this.canvas.height
+        );
+        const visiblePowerUps = this.viewportCuller.filterInViewport(
+            this.level.getPowerUps(), this.camera, this.canvas.width, this.canvas.height
+        );
+        
+        // Add visible objects to spatial grid
+        visibleEnemies.forEach(enemy => this.spatialGrid.addObject(enemy, 'enemy'));
+        visiblePowerUps.forEach(powerUp => this.spatialGrid.addObject(powerUp, 'powerup'));
+        this.player.fireBalls.forEach(fireball => this.spatialGrid.addObject(fireball, 'fireball'));
+        
+        // Update game objects (only visible ones)
         this.player.update(this.input, this.level.getSolidTiles());
-        this.level.update(this.player);
+        this.level.updateVisible(this.player, visibleEnemies, visiblePowerUps);
         this.particleSystem.update();
         
-        // Check collisions
+        // Check collisions (optimized)
         this.checkCollisions();
         
         // Update camera
@@ -320,30 +349,49 @@ class Game {
     }
     
     checkCollisions() {
-        // Player vs enemies
-        this.level.getEnemies().forEach(enemy => {
-            const collision = enemy.checkPlayerCollision(this.player);
-            if (collision) {
-                if (collision === 'damage') {
-                    if (this.player.takeDamage()) {
-                        this.gameOver();
-                    } else {
-                        this.soundManager.playSound('enemyHit');
+        // Use viewport culling to only check collisions for visible objects
+        const visibleEnemies = this.viewportCuller.filterInViewport(
+            this.level.getEnemies(), 
+            this.camera, 
+            this.canvas.width, 
+            this.canvas.height
+        );
+        
+        const visiblePowerUps = this.viewportCuller.filterInViewport(
+            this.level.getPowerUps(), 
+            this.camera, 
+            this.canvas.width, 
+            this.canvas.height
+        );
+        
+        // Player vs enemies (optimized with spatial grid)
+        const nearbyEnemies = this.spatialGrid.getNearbyObjects(this.player, 'enemy');
+        for (const enemy of nearbyEnemies) {
+            if (visibleEnemies.includes(enemy)) {
+                const collision = enemy.checkPlayerCollision(this.player);
+                if (collision) {
+                    if (collision === 'damage') {
+                        if (this.player.takeDamage()) {
+                            this.gameOver();
+                        } else {
+                            this.soundManager.playSound('enemyHit');
+                        }
+                    } else if (collision === 'destroyed') {
+                        this.soundManager.playSound('enemyDeath');
+                        this.particleSystem.createEnemyDeathEffect(
+                            enemy.x + enemy.width/2, 
+                            enemy.y + enemy.height/2, 
+                            enemy.type
+                        );
                     }
-                } else if (collision === 'destroyed') {
-                    this.soundManager.playSound('enemyDeath');
-                    this.particleSystem.createEnemyDeathEffect(
-                        enemy.x + enemy.width/2, 
-                        enemy.y + enemy.height/2, 
-                        enemy.type
-                    );
                 }
             }
-        });
+        }
         
-        // Player vs power-ups
-        this.level.getPowerUps().forEach(powerUp => {
-            if (powerUp.checkPlayerCollision(this.player)) {
+        // Player vs power-ups (optimized)
+        const nearbyPowerUps = this.spatialGrid.getNearbyObjects(this.player, 'powerup');
+        for (const powerUp of nearbyPowerUps) {
+            if (visiblePowerUps.includes(powerUp) && powerUp.checkPlayerCollision(this.player)) {
                 this.soundManager.playSound(powerUp.type === 'coin' ? 'coin' : 'powerup');
                 this.particleSystem.createPowerUpEffect(
                     powerUp.x + powerUp.width/2,
@@ -351,11 +399,12 @@ class Game {
                     powerUp.type
                 );
             }
-        });
+        }
         
-        // Fireballs vs enemies
-        this.player.fireBalls.forEach(fireball => {
-            this.level.getEnemies().forEach(enemy => {
+        // Fireballs vs enemies (optimized)
+        for (const fireball of this.player.fireBalls) {
+            const nearbyFireballEnemies = this.spatialGrid.getNearbyObjects(fireball, 'enemy');
+            for (const enemy of nearbyFireballEnemies) {
                 if (Utils.checkCollision(fireball.getBounds(), enemy.getBounds())) {
                     const points = enemy.onHitByFireball(fireball);
                     if (points > 0) {
@@ -367,9 +416,10 @@ class Game {
                         );
                     }
                     fireball.destroyed = true;
+                    break; // Exit loop since fireball is destroyed
                 }
-            });
-        });
+            }
+        }
     }
     
     updateCamera() {
@@ -594,6 +644,12 @@ class Game {
     // Main game loop
     run() {
         const gameLoop = (currentTime) => {
+            // Update performance monitor
+            if (window.performanceMonitor) {
+                window.performanceMonitor.update(currentTime);
+                window.performanceMonitor.checkPerformance();
+            }
+            
             this.update(currentTime);
             this.render();
             requestAnimationFrame(gameLoop);

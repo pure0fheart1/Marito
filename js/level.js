@@ -195,20 +195,25 @@ class Level {
     }
     
     update(player) {
-        // Update enemies
-        this.enemies.forEach(enemy => {
+        // Update all enemies and power-ups (fallback method)
+        this.updateVisible(player, this.enemies, this.powerUps);
+    }
+    
+    updateVisible(player, visibleEnemies, visiblePowerUps) {
+        // Update only visible enemies for better performance
+        visibleEnemies.forEach(enemy => {
             enemy.update(player, this.tiles);
         });
         
-        // Update power-ups
-        this.powerUps.forEach(powerUp => {
+        // Update only visible power-ups
+        visiblePowerUps.forEach(powerUp => {
             powerUp.update(this.tiles);
         });
         
-        // Remove destroyed enemies
+        // Remove destroyed enemies from all enemies (not just visible)
         this.enemies = this.enemies.filter(enemy => !enemy.destroyed);
         
-        // Remove collected power-ups
+        // Remove collected power-ups from all power-ups
         this.powerUps = this.powerUps.filter(powerUp => !powerUp.collected);
         
         // Check for tile interactions
