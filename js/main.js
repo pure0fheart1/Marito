@@ -1,9 +1,14 @@
 // Main entry point for the Mario game
 let game;
+let settingsManager;
 
 // Initialize the game when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     try {
+        // Initialize settings manager
+        settingsManager = new SettingsManager();
+
+        // Initialize game
         game = new Game();
         game.run();
         console.log('🍄 Super Mario Platform Game Loaded Successfully!');

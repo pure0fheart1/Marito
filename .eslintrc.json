@@ -17,6 +17,8 @@
     "ErrorHandler": "readonly",
     "errorHandler": "readonly",
     "StorageManager": "readonly",
+    "SettingsManager": "readonly",
+    "settingsManager": "writable",
     "PerformanceMonitor": "readonly",
     "Camera": "readonly",
     "SpatialGrid": "readonly",

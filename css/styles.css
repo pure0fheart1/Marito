@@ -198,6 +198,280 @@ button:focus {
     cursor: pointer;
 }
 
+/* Settings Menu (Advanced) */
+.settings-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+}
+
+.settings-content {
+    background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+    border: 3px solid #FFD700;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.settings-content h2 {
+    margin: 0 0 20px 0;
+    color: #FFD700;
+    text-align: center;
+    font-size: 28px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.settings-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 20px;
+    background: #444;
+    color: #fff;
+    border: 2px solid #666;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.tab-button:hover {
+    background: #555;
+    border-color: #FFD700;
+    transform: translateY(-2px);
+}
+
+.tab-button.active {
+    background: #FFD700;
+    color: #000;
+    border-color: #FFD700;
+}
+
+.settings-panel {
+    margin: 20px 0;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.setting-group {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px solid #444;
+}
+
+.setting-group label {
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.setting-group input[type="range"] {
+    width: 100%;
+    height: 8px;
+    background: #444;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.setting-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #FFD700;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.setting-group input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.setting-group input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #FFD700;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.setting-group input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.setting-group input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.setting-group input[type="number"] {
+    width: 100px;
+    padding: 8px;
+    background: #333;
+    color: #fff;
+    border: 2px solid #666;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.setting-group input[type="number"]:focus {
+    border-color: #FFD700;
+    outline: none;
+}
+
+.setting-group select {
+    width: 100%;
+    padding: 10px;
+    background: #333;
+    color: #fff;
+    border: 2px solid #666;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.setting-group select:hover {
+    border-color: #FFD700;
+}
+
+.setting-group select:focus {
+    border-color: #FFD700;
+    outline: none;
+}
+
+.setting-group .value {
+    display: inline-block;
+    margin-left: 10px;
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.setting-group p {
+    margin: 5px 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.setting-group strong {
+    color: #FFD700;
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.btn-reset {
+    flex: 1;
+    padding: 12px 24px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-reset:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+.btn-close {
+    flex: 1;
+    padding: 12px 24px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-close:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 10px 20px;
+    background: #666;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Scrollbar styling for settings menu */
+.settings-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.settings-content::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 5px;
+}
+
+.settings-content::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border-radius: 5px;
+}
+
+.settings-content::-webkit-scrollbar-thumb:hover {
+    background: #FFA500;
+}
+
 /* High Scores */
 #highScores {
     position: absolute;
