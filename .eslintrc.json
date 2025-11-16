@@ -25,6 +25,8 @@
     "achievementsUI": "writable",
     "TransitionManager": "readonly",
     "transitionManager": "writable",
+    "DebugMode": "readonly",
+    "debugMode": "writable",
     "PerformanceMonitor": "readonly",
     "Camera": "readonly",
     "SpatialGrid": "readonly",

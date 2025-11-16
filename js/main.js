@@ -3,6 +3,8 @@ let game;
 let settingsManager;
 let achievementsManager;
 let achievementsUI;
+let transitionManager;
+let debugMode;
 
 // Initialize the game when the page loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize game
         game = new Game();
+
+        // Initialize debug mode (after game)
+        debugMode = new DebugMode(canvas, ctx, game);
+
         game.run();
         console.log('🍄 Super Mario Platform Game Loaded Successfully!');
     } catch (error) {
@@ -51,6 +57,16 @@ document.addEventListener('visibilitychange', () => {
 // Prevent context menu on right click
 document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
+});
+
+// F12 to toggle debug mode
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'F12') {
+        e.preventDefault();
+        if (debugMode) {
+            debugMode.toggle();
+        }
+    }
 });
 
 // Show error message to user
