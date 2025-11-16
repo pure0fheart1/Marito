@@ -1,0 +1,362 @@
+/**
+ * Marito Game Styles
+ * Main stylesheet for the Mario platformer game
+ */
+
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #87CEEB, #98FB98);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+/* Game Container */
+#gameContainer {
+    position: relative;
+    background: #000;
+    border: 3px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Canvas */
+#gameCanvas {
+    display: block;
+    background: #5C94FC;
+}
+
+/* UI Overlay */
+#ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 10;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+#ui div {
+    margin-bottom: 5px;
+}
+
+/* Modal Dialogs */
+#gameOver, #levelComplete, #mainMenu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 20;
+    display: none;
+    min-width: 300px;
+}
+
+#mainMenu h1 {
+    margin-top: 0;
+    font-size: 32px;
+    color: #FFD700;
+}
+
+#gameOver h2, #levelComplete h2 {
+    margin-top: 0;
+    font-size: 28px;
+    color: #FF6B6B;
+}
+
+#levelComplete h2 {
+    color: #4CAF50;
+}
+
+/* Buttons */
+button {
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background 0.3s, transform 0.1s;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #FF5252;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:focus {
+    outline: 2px solid #FFD700;
+    outline-offset: 2px;
+}
+
+/* Controls Info */
+#controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#controls div {
+    margin-bottom: 3px;
+}
+
+/* Loading Screen */
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    z-index: 30;
+}
+
+/* Pause Overlay */
+#pauseOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 15;
+}
+
+#pauseOverlay h2 {
+    color: white;
+    font-size: 48px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.9);
+}
+
+/* Settings Panel */
+#settings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    z-index: 25;
+    display: none;
+    min-width: 350px;
+}
+
+#settings h2 {
+    margin-top: 0;
+    color: #FFD700;
+}
+
+.setting-item {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-item label {
+    font-size: 16px;
+}
+
+.setting-item input[type="range"] {
+    width: 150px;
+}
+
+.setting-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* High Scores */
+#highScores {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    z-index: 25;
+    display: none;
+    min-width: 350px;
+}
+
+#highScores h2 {
+    margin-top: 0;
+    color: #FFD700;
+}
+
+.score-entry {
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Level Select */
+#levelSelect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    z-index: 25;
+    display: none;
+    min-width: 400px;
+}
+
+#levelSelect h2 {
+    margin-top: 0;
+    color: #FFD700;
+}
+
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.level-button {
+    padding: 20px;
+    background: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.level-button:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+.level-button.locked {
+    background: #666;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.level-button.completed {
+    background: #FFD700;
+    color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 1100px) {
+    #gameContainer {
+        transform: scale(0.9);
+    }
+}
+
+@media (max-width: 1000px) {
+    #gameContainer {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 900px) {
+    #gameContainer {
+        transform: scale(0.7);
+    }
+}
+
+/* Accessibility */
+*:focus {
+    outline: 2px solid #FFD700;
+    outline-offset: 2px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.pulse {
+    animation: pulse 1s infinite;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+.slide-down {
+    animation: slideDown 0.3s ease-out;
+}

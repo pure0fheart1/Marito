@@ -1,6 +1,23 @@
-// Particle system for visual effects
+// Particle system for visual effects with object pooling
 class Particle {
-    constructor(x, y, velocityX, velocityY, color, life, size = 2) {
+    constructor() {
+        this.reset();
+    }
+
+    reset() {
+        this.x = 0;
+        this.y = 0;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.color = '#FFFFFF';
+        this.life = 0;
+        this.maxLife = 0;
+        this.size = 2;
+        this.gravity = CONFIG.PARTICLES.GRAVITY;
+        this.active = false;
+    }
+
+    init(x, y, velocityX, velocityY, color, life, size = 2) {
         this.x = x;
         this.y = y;
         this.velocityX = velocityX;
@@ -9,27 +26,29 @@ class Particle {
         this.life = life;
         this.maxLife = life;
         this.size = size;
-        this.gravity = 0.1;
-        this.dead = false;
+        this.active = true;
     }
-    
+
     update() {
+        if (!this.active) return;
+
         this.x += this.velocityX;
         this.y += this.velocityY;
         this.velocityY += this.gravity;
-        
+        this.velocityX *= CONFIG.PARTICLES.FRICTION;
+
         this.life--;
         if (this.life <= 0) {
-            this.dead = true;
+            this.active = false;
         }
     }
-    
+
     render(ctx, camera) {
-        if (this.dead) return;
-        
+        if (!this.active) return;
+
         const screenX = this.x - camera.x;
         const screenY = this.y - camera.y;
-        
+
         const alpha = this.life / this.maxLife;
         ctx.globalAlpha = alpha;
         ctx.fillStyle = this.color;
@@ -39,12 +58,34 @@ class Particle {
 }
 
 class ParticleSystem {
-    constructor() {
+    constructor(poolSize = 200) {
         this.particles = [];
+        this.poolSize = poolSize;
+
+        // Pre-create particle pool
+        for (let i = 0; i < poolSize; i++) {
+            this.particles.push(new Particle());
+        }
     }
-    
+
+    /**
+     * Get an inactive particle from the pool
+     * @returns {Particle|null} An inactive particle or null if pool is full
+     */
+    getParticle() {
+        for (let i = 0; i < this.particles.length; i++) {
+            if (!this.particles[i].active) {
+                return this.particles[i];
+            }
+        }
+        return null;
+    }
+
     addParticle(x, y, velocityX, velocityY, color, life, size) {
-        this.particles.push(new Particle(x, y, velocityX, velocityY, color, life, size));
+        const particle = this.getParticle();
+        if (particle) {
+            particle.init(x, y, velocityX, velocityY, color, life, size);
+        }
     }
     
     createExplosion(x, y, color = '#FFD700', count = 8) {
@@ -126,15 +167,36 @@ class ParticleSystem {
     }
     
     update() {
-        this.particles.forEach(particle => particle.update());
-        this.particles = this.particles.filter(particle => !particle.dead);
+        for (let i = 0; i < this.particles.length; i++) {
+            if (this.particles[i].active) {
+                this.particles[i].update();
+            }
+        }
     }
-    
+
     render(ctx, camera) {
-        this.particles.forEach(particle => particle.render(ctx, camera));
+        for (let i = 0; i < this.particles.length; i++) {
+            if (this.particles[i].active) {
+                this.particles[i].render(ctx, camera);
+            }
+        }
     }
-    
+
     clear() {
-        this.particles = [];
+        for (let i = 0; i < this.particles.length; i++) {
+            this.particles[i].reset();
+        }
+    }
+
+    /**
+     * Get the number of active particles
+     * @returns {number} Count of active particles
+     */
+    getActiveCount() {
+        let count = 0;
+        for (let i = 0; i < this.particles.length; i++) {
+            if (this.particles[i].active) count++;
+        }
+        return count;
     }
 }

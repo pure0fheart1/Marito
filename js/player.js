@@ -4,37 +4,37 @@ class Player {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 32;
-        this.height = 32;
+        this.width = CONFIG.PLAYER.SMALL_WIDTH;
+        this.height = CONFIG.PLAYER.SMALL_HEIGHT;
         this.velocityX = 0;
         this.velocityY = 0;
         this.direction = 1; // 1 for right, -1 for left
-        
+
         // Physics properties
         this.onGround = false;
         this.isMoving = false;
         this.coyoteTimer = 0;
         this.jumpBuffer = 0;
-        
+
         // Player states
         this.state = 'small'; // small, big, fire
         this.invulnerable = false;
         this.invulnerabilityTimer = 0;
         this.transforming = false;
         this.transformTimer = 0;
-        
+
         // Animation properties
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animationSpeed = 8; // frames per animation frame
         this.currentAnimation = 'idle';
-        
+
         // Game properties
-        this.lives = 3;
+        this.lives = CONFIG.PLAYER.MAX_LIVES;
         this.score = 0;
         this.coins = 0;
         this.fireBalls = [];
-        this.maxFireBalls = 2;
+        this.maxFireBalls = CONFIG.PLAYER.MAX_FIREBALLS;
         
         // Physics engine
         this.physics = new PlayerPhysics();
@@ -94,9 +94,9 @@ class Player {
             this.height = 24; // Reduce height when crouching
         } else {
             if (this.state === 'small') {
-                this.height = 32;
+                this.height = CONFIG.PLAYER.SMALL_HEIGHT;
             } else {
-                this.height = 48; // Big Mario is taller
+                this.height = CONFIG.PLAYER.BIG_HEIGHT; // Big Mario is taller
             }
         }
         

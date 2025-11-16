@@ -3,8 +3,8 @@ class SoundManager {
     constructor() {
         this.audioContext = null;
         this.sounds = {};
-        this.musicVolume = 0.3;
-        this.sfxVolume = 0.5;
+        this.musicVolume = CONFIG.AUDIO.MUSIC_VOLUME;
+        this.sfxVolume = CONFIG.AUDIO.SFX_VOLUME;
         this.currentMusic = null;
         this.muted = false;
         
