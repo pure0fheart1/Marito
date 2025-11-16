@@ -11,6 +11,14 @@
   "globals": {
     "CONFIG": "readonly",
     "Utils": "readonly",
+    "ErrorHandler": "readonly",
+    "errorHandler": "readonly",
+    "StorageManager": "readonly",
+    "PerformanceMonitor": "readonly",
+    "Camera": "readonly",
+    "SpatialGrid": "readonly",
+    "CollisionManager": "readonly",
+    "TouchControls": "readonly",
     "Physics": "readonly",
     "PlayerPhysics": "readonly",
     "Player": "readonly",
@@ -29,7 +37,6 @@
     "Particle": "readonly",
     "ParticleSystem": "readonly",
     "SoundManager": "readonly",
-    "StorageManager": "readonly",
     "Game": "readonly",
     "game": "writable"
   },
