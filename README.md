@@ -10,8 +10,9 @@ A fully-featured Mario-style platformer game built with HTML5 Canvas and vanilla
 ## ✨ Features
 
 ### Core Gameplay
-- 🎮 **6 Unique Levels** - Progress through increasingly challenging stages with different themes
-- 🌍 **Multiple Environments** - Overworld, Underground, and Castle themes with unique aesthetics
+- 🎮 **10 Epic Levels** - Progress through 3 worlds with increasing difficulty
+- 🌍 **10 Unique Themes** - Overworld, Underground, Sky, Castle, Desert, Ice, Volcano, Sky Castle, Jungle, and Underwater
+- 🏆 **Boss Battles** - Face challenging boss fights at the end of each world
 - ⚡ **Smooth Physics Engine** - Realistic gravity, acceleration, and collision detection
 - 🎯 **Responsive Controls** - Precise movement with coyote time and jump buffering
 - 💾 **Save System** - LocalStorage integration for high scores and game progress
@@ -135,7 +136,7 @@ Marito/
 3. **Collect**: Hit question blocks from below to get power-ups
 4. **Fight**: Jump on enemies or shoot fireballs to defeat them
 5. **Complete**: Reach the flagpole at the end of each level
-6. **Win**: Complete all 6 levels!
+6. **Win**: Complete all 10 levels across 3 challenging worlds!
 
 ### Tips & Tricks
 - 💡 Collect 100 coins for an extra life
@@ -154,6 +155,124 @@ Marito/
 | Buzzy | 300 |
 | Coin | 100 |
 | Power-up | 1000 |
+
+## 🗺️ Level Guide
+
+Marito features **10 progressively challenging levels** across **3 worlds** with unique themes and mechanics:
+
+### World 1: Green Lands (Easy - Medium)
+
+#### 1-1: Green Hills Zone 🌳
+- **Theme**: Overworld
+- **Difficulty**: ★☆☆☆☆ (Tutorial)
+- **Length**: 6400 pixels
+- **Time**: 400 seconds
+- **Features**: Basic platforming, introduction to enemies, power-ups
+- **Enemies**: Goombas, Koopas, 1 Piranha Plant
+
+#### 1-2: Underground Cavern 🕳️
+- **Theme**: Underground
+- **Difficulty**: ★★☆☆☆
+- **Length**: 5120 pixels
+- **Time**: 350 seconds
+- **Features**: Tight corridors, pipes, narrow platforms over pits
+- **Enemies**: Goombas, Buzzy Beetles, multiple Piranha Plants
+
+#### 1-3: Cloud Garden ☁️
+- **Theme**: Sky
+- **Difficulty**: ★★★☆☆
+- **Length**: 7200 pixels
+- **Time**: 350 seconds
+- **Features**: Cloud platforms, moving platforms, high jumps, bonus coins
+- **Enemies**: Koopas, many flying Buzzy Beetles
+
+#### 1-4: Castle Showdown 🏰
+- **Theme**: Castle
+- **Difficulty**: ★★★★☆ (Boss Level)
+- **Length**: 4800 pixels
+- **Time**: 300 seconds
+- **Features**: Lava pits, narrow platforms, fire bars, **Bowser Boss Fight**
+- **Boss**: Bowser (10 HP, fire breathing, jump attacks)
+
+### World 2: Extreme Zones (Hard - Very Hard)
+
+#### 2-1: Sandy Dunes 🏜️
+- **Theme**: Desert
+- **Difficulty**: ★★★★☆
+- **Length**: 8000 pixels
+- **Time**: 380 seconds
+- **Features**: Sand dunes, quicksand, pyramid structures, long level
+- **Enemies**: Increased enemy density, faster movement
+
+#### 2-2: Frozen Tundra ❄️
+- **Theme**: Ice
+- **Difficulty**: ★★★★★
+- **Length**: 7400 pixels
+- **Time**: 320 seconds
+- **Features**: **Slippery ice physics**, narrow platforms, icicle obstacles
+- **Hazards**: Iceblocks, falling icicles
+- **Special**: Reduced friction makes controls harder
+
+#### 2-3: Volcanic Fury 🌋
+- **Theme**: Volcano
+- **Difficulty**: ★★★★★
+- **Length**: 6800 pixels
+- **Time**: 280 seconds
+- **Features**: Lava pools, falling platforms, fireball launchers, crumbling platforms
+- **Hazards**: Rising lava, fire bars, extreme danger
+- **Special**: Star power-up critical for survival
+
+#### 2-4: Sky Fortress 🏯
+- **Theme**: Sky Castle
+- **Difficulty**: ★★★★★ (Boss Level)
+- **Length**: 5600 pixels
+- **Time**: 260 seconds
+- **Features**: Cloud platforms, moving platforms, Thwomp obstacles, **Flying Bowser Boss**
+- **Boss**: Flying Bowser (15 HP, aerial attacks, fire breath)
+
+### World 3: Ultimate Challenge (Extreme)
+
+#### 3-1: Jungle Ruins 🌴
+- **Theme**: Jungle
+- **Difficulty**: ★★★★★+
+- **Length**: 9600 pixels (longest level!)
+- **Time**: 350 seconds
+- **Features**: Swinging vines, spike traps, ancient ruins, waterfalls, hidden passages
+- **Enemies**: Dense enemy placement, multiple types
+- **Special**: Requires mastery of all mechanics
+
+#### 3-2: Deep Sea Adventure 🌊
+- **Theme**: Underwater
+- **Difficulty**: ★★★★★★ (Max)
+- **Length**: 7200 pixels
+- **Time**: 300 seconds
+- **Features**: **Underwater physics**, currents, whirlpools, kelp forest, shipwrecks
+- **Enemies**: Cheep-Cheeps (fish), Bloopers (squid)
+- **Special**: Completely different movement physics, air management
+
+### Difficulty Progression
+
+Each level increases difficulty through:
+- **Enemy Speed**: 1.0x → 2.0x (doubles by level 10)
+- **Enemy Count**: More enemies per level
+- **Platform Complexity**: Narrower platforms, bigger gaps, moving platforms
+- **Time Pressure**: Less time to complete each level
+- **New Mechanics**: Ice physics, water physics, lava, moving obstacles
+
+### Level Themes & Visual Variety
+
+| Theme | Background | Ground | Special Features |
+|-------|------------|--------|------------------|
+| **Overworld** | Sky Blue | Brown | Classic grass levels |
+| **Underground** | Black | Dark Brown | Caves, tight spaces |
+| **Sky** | Light Blue | White Clouds | No solid ground, cloud platforms |
+| **Castle** | Dark Gray | Gray Stone | Lava, fire bars |
+| **Desert** | Sand Yellow | Tan | Quicksand, pyramids |
+| **Ice** | Pale Blue | White Ice | Slippery surfaces |
+| **Volcano** | Dark Red | Lava Rock | Falling platforms, fire |
+| **Sky Castle** | Blue | Cloud/Stone Mix | High altitude fortress |
+| **Jungle** | Green | Jungle Floor | Vines, ruins, waterfalls |
+| **Underwater** | Deep Blue | Coral | Water physics, currents |
 
 ## 🛠️ Development
 

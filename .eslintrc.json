@@ -10,6 +10,9 @@
   },
   "globals": {
     "CONFIG": "readonly",
+    "LEVEL_DATA": "readonly",
+    "DIFFICULTY_SCALING": "readonly",
+    "LEVEL_THEMES": "readonly",
     "Utils": "readonly",
     "ErrorHandler": "readonly",
     "errorHandler": "readonly",
