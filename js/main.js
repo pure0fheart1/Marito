@@ -7,12 +7,19 @@ let achievementsUI;
 // Initialize the game when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     try {
+        // Get canvas and context
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
         // Initialize settings manager
         settingsManager = new SettingsManager();
 
         // Initialize achievements system
         achievementsManager = new AchievementsManager();
         achievementsUI = new AchievementsUI(achievementsManager);
+
+        // Initialize transition manager
+        transitionManager = new TransitionManager(canvas, ctx);
 
         // Initialize game
         game = new Game();

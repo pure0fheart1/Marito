@@ -23,6 +23,8 @@
     "achievementsManager": "writable",
     "AchievementsUI": "readonly",
     "achievementsUI": "writable",
+    "TransitionManager": "readonly",
+    "transitionManager": "writable",
     "PerformanceMonitor": "readonly",
     "Camera": "readonly",
     "SpatialGrid": "readonly",
