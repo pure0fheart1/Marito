@@ -29,8 +29,46 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initialize debug mode (after game)
         debugMode = new DebugMode(canvas, ctx, game);
 
+        // Initialize enhanced sound system
+        enhancedSoundManager = new EnhancedSoundManager();
+
+        // Initialize music system
+        musicSystem = new MusicSystem();
+
+        // Initialize parallax backgrounds
+        parallaxBackground = new ParallaxBackground(canvas, ctx);
+        parallaxBackground.setTheme('overworld');
+
+        // Initialize game state persistence
+        const storage = new StorageManager();
+        gameStatePersistence = new GameStatePersistence(storage);
+        gameStatePersistence.enableAutoSave();
+
+        // Initialize tutorial system
+        tutorialSystem = new TutorialSystem(canvas);
+
+        // Initialize combo system
+        comboSystem = new ComboSystem();
+
+        // Initialize environmental effects
+        environmentalEffects = new EnvironmentalEffects(canvas, ctx);
+
+        // Initialize enhanced particle system
+        enhancedParticleSystem = new EnhancedParticleSystem();
+
+        // Initialize statistics dashboard
+        statisticsDashboard = new StatisticsDashboard();
+
         game.run();
         console.log('🍄 Super Mario Platform Game Loaded Successfully!');
+
+        // Start tutorial for new players
+        if (!tutorialSystem.completed) {
+            tutorialSystem.start();
+        }
+
+        // Start background music
+        musicSystem.play('menu');
     } catch (error) {
         console.error('Failed to initialize game:', error);
         showErrorMessage('Game failed to load. Please refresh the page.');
