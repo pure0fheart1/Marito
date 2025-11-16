@@ -1,12 +1,18 @@
 // Main entry point for the Mario game
 let game;
 let settingsManager;
+let achievementsManager;
+let achievementsUI;
 
 // Initialize the game when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     try {
         // Initialize settings manager
         settingsManager = new SettingsManager();
+
+        // Initialize achievements system
+        achievementsManager = new AchievementsManager();
+        achievementsUI = new AchievementsUI(achievementsManager);
 
         // Initialize game
         game = new Game();
