@@ -226,7 +226,7 @@ const CONFIG = {
             LEVEL_COMPLETE: 'levelcomplete'
         },
 
-        TOTAL_LEVELS: 10,
+        TOTAL_LEVELS: 20,
         STARTING_LEVEL: 1
     },
 
