@@ -747,7 +747,17 @@ const DIFFICULTY_SCALING = {
     7: { enemySpeed: 1.6, enemyCount: 1.7, platformDifficulty: 1.6, timeMultiplier: 0.75 },
     8: { enemySpeed: 1.7, enemyCount: 1.8, platformDifficulty: 1.7, timeMultiplier: 0.70 },
     9: { enemySpeed: 1.8, enemyCount: 1.9, platformDifficulty: 1.8, timeMultiplier: 0.70 },
-    10: { enemySpeed: 2.0, enemyCount: 2.0, platformDifficulty: 2.0, timeMultiplier: 0.65 }
+    10: { enemySpeed: 2.0, enemyCount: 2.0, platformDifficulty: 2.0, timeMultiplier: 0.65 },
+    11: { enemySpeed: 2.1, enemyCount: 2.1, platformDifficulty: 2.1, timeMultiplier: 0.65 },
+    12: { enemySpeed: 2.2, enemyCount: 2.2, platformDifficulty: 2.2, timeMultiplier: 0.60 },
+    13: { enemySpeed: 2.3, enemyCount: 2.3, platformDifficulty: 2.3, timeMultiplier: 0.60 },
+    14: { enemySpeed: 2.4, enemyCount: 2.4, platformDifficulty: 2.4, timeMultiplier: 0.55 },
+    15: { enemySpeed: 2.5, enemyCount: 2.5, platformDifficulty: 2.5, timeMultiplier: 0.55 },
+    16: { enemySpeed: 2.6, enemyCount: 2.6, platformDifficulty: 2.6, timeMultiplier: 0.50 },
+    17: { enemySpeed: 2.7, enemyCount: 2.7, platformDifficulty: 2.7, timeMultiplier: 0.50 },
+    18: { enemySpeed: 2.8, enemyCount: 2.8, platformDifficulty: 2.8, timeMultiplier: 0.45 },
+    19: { enemySpeed: 2.9, enemyCount: 2.9, platformDifficulty: 2.9, timeMultiplier: 0.45 },
+    20: { enemySpeed: 3.0, enemyCount: 3.0, platformDifficulty: 3.0, timeMultiplier: 0.40 }
 };
 
 // Level themes configuration
@@ -811,6 +821,30 @@ const LEVEL_THEMES = {
         groundColor: '#4682B4',
         platformColor: '#5F9EA0',
         skyColor: '#191970'
+    },
+    HAUNTED: {
+        backgroundColor: '#1a0033',
+        groundColor: '#2d1b3d',
+        platformColor: '#483d5c',
+        skyColor: '#0d0020'
+    },
+    SPACE: {
+        backgroundColor: '#000011',
+        groundColor: '#1a1a2e',
+        platformColor: '#16213e',
+        skyColor: '#0a0a15'
+    },
+    RAINBOW: {
+        backgroundColor: '#ffb3ff',
+        groundColor: '#ff99cc',
+        platformColor: '#cc99ff',
+        skyColor: '#e6ccff'
+    },
+    FINAL_CASTLE: {
+        backgroundColor: '#0d0d0d',
+        groundColor: '#1a1a1a',
+        platformColor: '#333333',
+        skyColor: '#050505'
     }
 };
 
