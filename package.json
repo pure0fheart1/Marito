@@ -1,0 +1,36 @@
+{
+  "name": "marito",
+  "version": "1.0.0",
+  "description": "A classic Super Mario style platformer game built with HTML5 Canvas and vanilla JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8080 -o",
+    "lint": "eslint js/*.js",
+    "lint:fix": "eslint js/*.js --fix",
+    "test": "echo \"No tests configured yet\" && exit 0"
+  },
+  "keywords": [
+    "game",
+    "platformer",
+    "mario",
+    "html5",
+    "canvas",
+    "javascript"
+  ],
+  "author": "Marito Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pure0fheart1/Marito.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pure0fheart1/Marito/issues"
+  }
+}

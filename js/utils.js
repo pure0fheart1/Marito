@@ -1,7 +1,15 @@
-// Utility functions for the Mario game
+/**
+ * Utility functions for the Marito game
+ * Provides common helper functions for collision detection, math operations, and rendering
+ */
 
 class Utils {
-    // Check collision between two rectangles
+    /**
+     * Check collision between two rectangles using AABB (Axis-Aligned Bounding Box) algorithm
+     * @param {Object} rect1 - First rectangle with x, y, width, height properties
+     * @param {Object} rect2 - Second rectangle with x, y, width, height properties
+     * @returns {boolean} True if rectangles are colliding
+     */
     static checkCollision(rect1, rect2) {
         return rect1.x < rect2.x + rect2.width &&
                rect1.x + rect1.width > rect2.x &&
@@ -9,42 +17,84 @@ class Utils {
                rect1.y + rect1.height > rect2.y;
     }
 
-    // Check if point is inside rectangle
+    /**
+     * Check if a point is inside a rectangle
+     * @param {Object} point - Point with x, y properties
+     * @param {Object} rect - Rectangle with x, y, width, height properties
+     * @returns {boolean} True if point is inside rectangle
+     */
     static pointInRect(point, rect) {
-        return point.x >= rect.x && 
+        return point.x >= rect.x &&
                point.x <= rect.x + rect.width &&
-               point.y >= rect.y && 
+               point.y >= rect.y &&
                point.y <= rect.y + rect.height;
     }
 
-    // Clamp value between min and max
+    /**
+     * Clamp a value between minimum and maximum bounds
+     * @param {number} value - Value to clamp
+     * @param {number} min - Minimum value
+     * @param {number} max - Maximum value
+     * @returns {number} Clamped value
+     */
     static clamp(value, min, max) {
         return Math.min(Math.max(value, min), max);
     }
 
-    // Linear interpolation
+    /**
+     * Linear interpolation between two values
+     * @param {number} start - Start value
+     * @param {number} end - End value
+     * @param {number} factor - Interpolation factor (0-1)
+     * @returns {number} Interpolated value
+     */
     static lerp(start, end, factor) {
         return start + (end - start) * factor;
     }
 
-    // Distance between two points
+    /**
+     * Calculate distance between two points using Pythagorean theorem
+     * @param {Object} p1 - First point with x, y properties
+     * @param {Object} p2 - Second point with x, y properties
+     * @returns {number} Distance between points
+     */
     static distance(p1, p2) {
         const dx = p2.x - p1.x;
         const dy = p2.y - p1.y;
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    // Random number between min and max
+    /**
+     * Generate random floating-point number between min and max
+     * @param {number} min - Minimum value (inclusive)
+     * @param {number} max - Maximum value (exclusive)
+     * @returns {number} Random number
+     */
     static random(min, max) {
         return Math.random() * (max - min) + min;
     }
 
-    // Random integer between min and max (inclusive)
+    /**
+     * Generate random integer between min and max
+     * @param {number} min - Minimum value (inclusive)
+     * @param {number} max - Maximum value (inclusive)
+     * @returns {number} Random integer
+     */
     static randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // Draw rounded rectangle
+    /**
+     * Draw a rounded rectangle on canvas
+     * @param {CanvasRenderingContext2D} ctx - Canvas rendering context
+     * @param {number} x - X coordinate
+     * @param {number} y - Y coordinate
+     * @param {number} width - Rectangle width
+     * @param {number} height - Rectangle height
+     * @param {number} radius - Corner radius
+     * @param {string} fillColor - Fill color (null for no fill)
+     * @param {string} [strokeColor=null] - Stroke color (null for no stroke)
+     */
     static drawRoundedRect(ctx, x, y, width, height, radius, fillColor, strokeColor = null) {
         ctx.beginPath();
         ctx.moveTo(x + radius, y);

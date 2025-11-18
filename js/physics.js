@@ -2,12 +2,12 @@
 
 class Physics {
     constructor() {
-        this.gravity = 0.8;
-        this.friction = 0.85;
-        this.maxFallSpeed = 15;
-        this.jumpStrength = -15;
-        this.walkSpeed = 4;
-        this.runSpeed = 6;
+        this.gravity = CONFIG.PHYSICS.GRAVITY;
+        this.friction = CONFIG.PHYSICS.FRICTION;
+        this.maxFallSpeed = CONFIG.PHYSICS.MAX_FALL_SPEED;
+        this.jumpStrength = CONFIG.PLAYER.JUMP_STRENGTH;
+        this.walkSpeed = CONFIG.PLAYER.WALK_SPEED;
+        this.runSpeed = CONFIG.PLAYER.RUN_SPEED;
     }
 
     // Apply gravity to an object

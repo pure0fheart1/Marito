@@ -3,132 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Mario Platform Game</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #87CEEB, #98FB98);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-        
-        #gameContainer {
-            position: relative;
-            background: #000;
-            border: 3px solid #333;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-        
-        #gameCanvas {
-            display: block;
-            background: #5C94FC;
-        }
-        
-        #ui {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            z-index: 10;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-        
-        #gameOver, #levelComplete, #mainMenu {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.9);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            z-index: 20;
-            display: none;
-        }
-        
-        button {
-            background: #FF6B6B;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-            transition: background 0.3s;
-        }
-        
-        button:hover {
-            background: #FF5252;
-        }
-        
-        #controls {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: white;
-            font-size: 12px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-        }
-    </style>
+    <meta name="description" content="Marito - A classic Super Mario style platformer game built with HTML5 Canvas">
+    <meta name="keywords" content="mario, platformer, game, html5, canvas, javascript">
+    <title>Marito - Super Mario Platform Game</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="gameContainer">
-        <canvas id="gameCanvas" width="1024" height="576"></canvas>
-        
-        <div id="ui">
-            <div>Score: <span id="score">0</span></div>
-            <div>Coins: <span id="coins">0</span></div>
-            <div>Lives: <span id="lives">3</span></div>
-            <div>Time: <span id="time">400</span></div>
-            <div>World: <span id="world">1-1</span></div>
+    <div id="gameContainer" role="application" aria-label="Marito Platform Game">
+        <canvas id="gameCanvas" width="1024" height="576" role="img" aria-label="Game canvas"></canvas>
+
+        <div id="ui" role="status" aria-live="polite" aria-atomic="true">
+            <div>Score: <span id="score" aria-label="Current score">0</span></div>
+            <div>Coins: <span id="coins" aria-label="Coins collected">0</span></div>
+            <div>Lives: <span id="lives" aria-label="Remaining lives">3</span></div>
+            <div>Time: <span id="time" aria-label="Time remaining">400</span></div>
+            <div>World: <span id="world" aria-label="Current world">1-1</span></div>
         </div>
-        
-        <div id="mainMenu">
-            <h1>🍄 Super Mario Platform</h1>
+
+        <div id="mainMenu" role="dialog" aria-labelledby="mainMenuTitle" aria-modal="true">
+            <h1 id="mainMenuTitle">🍄 Super Mario Platform</h1>
             <p>A classic platformer adventure!</p>
-            <button onclick="game.startGame()">Start Game</button>
-            <button onclick="game.showLevelSelect()">Level Select</button>
-            <button onclick="game.showHighScores()">High Scores</button>
+            <nav aria-label="Main menu">
+                <button onclick="game.startGame()" aria-label="Start a new game">Start Game</button>
+                <button onclick="game.showLevelSelect()" aria-label="Select a level to play">Level Select</button>
+                <button onclick="game.showHighScores()" aria-label="View high scores">High Scores</button>
+                <button onclick="leaderboardUI.showUI()" aria-label="View leaderboards">🏅 Leaderboards</button>
+                <button onclick="achievementsUI.showUI()" aria-label="View achievements">🏆 Achievements</button>
+                <button onclick="statisticsDashboard.showUI()" aria-label="View statistics">📊 Stats</button>
+                <button onclick="settingsManager.showUI()" aria-label="Open settings menu">⚙️ Settings</button>
+            </nav>
         </div>
-        
-        <div id="gameOver">
-            <h2>Game Over!</h2>
-            <p>Final Score: <span id="finalScore">0</span></p>
-            <button onclick="game.restart()">Try Again</button>
-            <button onclick="game.showMainMenu()">Main Menu</button>
+
+        <div id="gameOver" role="dialog" aria-labelledby="gameOverTitle" aria-modal="true">
+            <h2 id="gameOverTitle">Game Over!</h2>
+            <p>Final Score: <span id="finalScore" aria-label="Final score">0</span></p>
+            <nav aria-label="Game over options">
+                <button onclick="game.restart()" aria-label="Try again">Try Again</button>
+                <button onclick="game.showMainMenu()" aria-label="Return to main menu">Main Menu</button>
+            </nav>
         </div>
-        
-        <div id="levelComplete">
-            <h2>Level Complete!</h2>
-            <p>Score: <span id="levelScore">0</span></p>
-            <button onclick="game.nextLevel()">Next Level</button>
-            <button onclick="game.showMainMenu()">Main Menu</button>
+
+        <div id="levelComplete" role="dialog" aria-labelledby="levelCompleteTitle" aria-modal="true">
+            <h2 id="levelCompleteTitle">Level Complete!</h2>
+            <p>Score: <span id="levelScore" aria-label="Level score">0</span></p>
+            <nav aria-label="Level complete options">
+                <button onclick="game.nextLevel()" aria-label="Continue to next level">Next Level</button>
+                <button onclick="game.showMainMenu()" aria-label="Return to main menu">Main Menu</button>
+            </nav>
         </div>
-        
-        <div id="controls">
+
+        <aside id="controls" aria-label="Game controls">
             <div>Arrow Keys: Move</div>
             <div>Space: Jump</div>
             <div>P: Pause</div>
-        </div>
+        </aside>
     </div>
 
+    <script src="js/config.js"></script>
+    <script src="js/level-data.js"></script>
+    <script src="js/error-handler.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/settings-manager.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/achievements-ui.js"></script>
+    <script src="js/leaderboard-system.js"></script>
+    <script src="js/transitions.js"></script>
+    <script src="js/debug-mode.js"></script>
+    <script src="js/sound-enhanced.js"></script>
+    <script src="js/music-system.js"></script>
+    <script src="js/game-enhancements.js"></script>
+    <script src="js/advanced-features.js"></script>
+    <script src="js/performance-monitor.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/spatial-grid.js"></script>
+    <script src="js/touch-controls.js"></script>
     <script src="js/physics.js"></script>
     <script src="js/player.js"></script>
     <script src="js/enemies.js"></script>
+    <script src="js/boss-system.js"></script>
     <script src="js/powerups.js"></script>
+    <script src="js/enhanced-powerups.js"></script>
     <script src="js/level.js"></script>
     <script src="js/particles.js"></script>
+    <script src="js/visual-effects.js"></script>
     <script src="js/sound.js"></script>
     <script src="js/game.js"></script>
     <script src="js/main.js"></script>
